@@ -1,0 +1,14 @@
+[Unit]
+Description=VNC Server for X11
+Requires=display-manager.service
+After=display-manager.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/x11vnc -forever -bg -geometry 3360x1050 -shared -noprimary \
+   -auth /var/run/lightdm/root/:0 -display :0 -usepw -rfbauth /root/.vnc/passwd 
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/bin/set-dual-screen-resolution.sh
+Name=Set dual-screen resolution
