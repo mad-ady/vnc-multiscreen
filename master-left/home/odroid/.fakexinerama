@@ -1,0 +1,5 @@
+2
+#left screen, starts at x=0 and y=0 and has a size of 1680x1050
+0 0 1680 1050
+#right screen, starts at x=1680 and y=0 and has a size of 1680x1050
+1680 0 1680 1050
