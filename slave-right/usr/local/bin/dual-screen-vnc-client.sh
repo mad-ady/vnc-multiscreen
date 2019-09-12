@@ -27,6 +27,9 @@ sleep 3
 DISPLAY=:0 xset -dpms
 DISPLAY=:0 xset s off
 
+#move the local mouse cursor off-screen - in the top left corner
+DISPLAY=:0 xdotool mousemove 0 0 
+
 #start the window positioning script
 /usr/local/bin/window-positioning.sh &
 
