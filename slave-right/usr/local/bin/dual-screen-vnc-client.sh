@@ -30,13 +30,20 @@ DISPLAY=:0 xset s off
 #move the local mouse cursor off-screen - in the top left corner
 DISPLAY=:0 xdotool mousemove 0 0 
 
-#start the window positioning script
-/usr/local/bin/window-positioning.sh &
-
 #do this forever so that if the network disconnects, the session is rejoined.
 while :
 do
         logger -s -t "$0" "Starting vnc client"
-	DISPLAY=:0 vncviewer -geometry ${TOTALWIDTH}x${TOTALHEIGHT} -compresslevel 0 -quality 9 -passwd /home/odroid/.vnc/passwd $MASTER
+	#kill any window positioning script that may be running
+	WND=`ps -ef | grep window-positioning.sh | grep -v grep | awk '{ print $2; }'`
+	if [ -n "$WND" ]; then
+		logger -s -t "$0" "Killing previous window positioning script"
+		kill -9 "$WND"
+	fi
+	#start the window positioning script
+	/usr/local/bin/window-positioning.sh &
+
+	DISPLAY=:0 vncviewer -geometry ${TOTALWIDTH}x${TOTALHEIGHT} -compresslevel 0 -quality 9 -encodings 'copyrect hextile' -passwd /home/odroid/.vnc/passwd $MASTER
+	#this is blocking until vncviewer closes (or doesn't connect)
 done
 

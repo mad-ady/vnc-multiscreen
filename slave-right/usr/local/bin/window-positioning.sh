@@ -21,8 +21,9 @@ fi
 while [ : ]
 do
     logger -s -t "$0" "Looking for vnc client window"
-    ACTIVEWIN=`DISPLAY=:0 xdotool search --onlyvisible --class vnc`
+    ACTIVEWIN=`DISPLAY=:0 xdotool search --onlyvisible --class vnc | tail -1`
     if [ -n "$ACTIVEWIN" ]; then
+	 logger -s -t "$0" "Found the VNC window $ACTIVEWIN"
     	 
 	 #shift the VNC window to the left (negative) by $WIDTH pixels
 
